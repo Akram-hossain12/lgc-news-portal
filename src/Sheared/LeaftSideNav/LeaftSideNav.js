@@ -11,7 +11,7 @@ const LeaftSideNav = () => {
     },[])
 
     return (
-        <div>
+        <div className='mt-5'>
             <h3>All Catagory  0{catagoris.length}</h3>
          <div>
             {
