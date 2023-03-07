@@ -7,6 +7,8 @@ import Login from '../Componants/Login/Login';
 import News from '../Componants/News/News';
 import Register from '../Componants/Register/Register';
 import Main from '../Layout/Main/Main';
+import TramsAndCondition from '../Other/TramsandCondition/TramsAndCondition';
+import PrivateRoute from './PrivateRoute';
 
 
    export  const router =createBrowserRouter([
@@ -27,7 +29,7 @@ import Main from '../Layout/Main/Main';
                 },
                 {
                     path:'/news/:id',
-                    element:<News></News>,
+                    element: <PrivateRoute><News></News></PrivateRoute>,
                     loader:({params})=>fetch(`http://localhost:5000/news/${params.id}`)
                 },
                 {
@@ -41,6 +43,10 @@ import Main from '../Layout/Main/Main';
                 {
                     path:"/register",
                     element:<Register></Register>
+                },
+                {
+                    path:'/tarms',
+                    element:<TramsAndCondition></TramsAndCondition>
                 }
             ]
         }

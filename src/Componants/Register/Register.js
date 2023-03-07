@@ -1,11 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 
 
 const Register = () => {
     const {loginEmailWithPass}=useContext(AuthContext);
+    const [accept,setAccept]=useState(false)
+    const [error,setError]=useState('');
     const createUserCliker =(event)=>{
                event.preventDefault();
                const form = event.target;
@@ -19,10 +22,15 @@ const Register = () => {
                 const user =result.user;
                 console.log(user)
                 form.reset();
+                setError('')
                })
                .catch(error=>{
                 console.error(error)
+                setError( error.message)
                })
+    }
+    const acceptedCliker = event=>{
+        setAccept(event.target.checked)
     }
     return (
         <div className='mt-5'>
@@ -48,19 +56,20 @@ const Register = () => {
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label className='text-primary'>Email address</Form.Label>
                     <Form.Control name='email' type="email" placeholder="Enter email" />
-                    <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
-                    </Form.Text>
+                  
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label className='text-primary'>Password</Form.Label>
                     <Form.Control name='password' type="password" placeholder="Password" />
+                    <Form.Text className="text-danger">
+                        {error}
+                    </Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check className='text-primary' type="checkbox" label="Check me out" />
+                    <Form.Check onClick={acceptedCliker} type="checkbox" label={<>Accept<Link to='/tarms'> Trams and condition</Link></>}/>
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" disabled={!accept}>
                     Registar
                 </Button>
             </Form>

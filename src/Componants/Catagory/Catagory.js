@@ -5,7 +5,6 @@ import NewsSummaryCard from '../../Sheared/newsSammaryCard/NewsSummaryCard';
 
 const Catagory = () => {
     const allCatagoryNews = useLoaderData();
-    console.log(allCatagoryNews)
     return (
         <div>
         {
