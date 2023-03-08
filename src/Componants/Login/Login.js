@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { toast } from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 
@@ -9,7 +10,7 @@ const Login = () => {
     const location = useLocation();
     const navigate =useNavigate()
     const from =location.state?.from?.pathname|| '/';
-    const {signInEmailPass}=useContext(AuthContext);
+    const {signInEmailPass,setLoader}=useContext(AuthContext);
     const signInCliker =(event)=>{
         event.preventDefault()
         const form =event.target;
@@ -22,11 +23,19 @@ const Login = () => {
             console.log(user)
             form.reset()
             setError("")
+            if(user.emailVerified){    
             navigate(from,{replace:true})
+            }
+            else{
+                toast.error('please,Varify your email address')
+            }
         })
         .catch(error=>{
             console.error(error)
             setError(error.message);
+        })
+        .finally(()=>{
+            setLoader(false)
         })
     }
     return (

@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import {createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut} from "firebase/auth";
+import {createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile} from "firebase/auth";
 import app from '../../Firebase/firebse.config'
 export const AuthContext = createContext();
 
@@ -21,6 +21,12 @@ const AuthProvider = ({children}) => {
         setLoader(true)
         return signInWithEmailAndPassword(auth,email,password)
     }
+    const profileUpdeteUser =(profile)=>{
+        return updateProfile(auth.currentUser,profile)
+    }
+    const userVrifying =()=>{
+        return sendEmailVerification(auth.currentUser)
+    }
     const logOut =()=>{
         setLoader(true)
         return signOut(auth)
@@ -28,14 +34,17 @@ const AuthProvider = ({children}) => {
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth,(currentUser)=>{
             console.log(currentUser);
-            setUser(currentUser);
+            
+            if(currentUser===null||currentUser.emailVerified){
+                setUser(currentUser);
+            }
             setLoader(false)
         })
         return ()=> unsubscribe();
     },[])
 
     // const user = {displayName:'akram'};
-    const authInfo = {user,loader,providerLogin,logOut,loginEmailWithPass,signInEmailPass}
+    const authInfo = {user,loader,setLoader,userVrifying, profileUpdeteUser, providerLogin,logOut,loginEmailWithPass,signInEmailPass}
     return (
         <AuthContext.Provider value={authInfo}>
             {children}

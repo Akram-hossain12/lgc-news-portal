@@ -1,33 +1,50 @@
 import React, { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { toast } from 'react-hot-toast';
+
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 
 
 const Register = () => {
-    const {loginEmailWithPass}=useContext(AuthContext);
+    const {loginEmailWithPass,profileUpdeteUser,userVrifying  } =useContext(AuthContext);
     const [accept,setAccept]=useState(false)
     const [error,setError]=useState('');
     const createUserCliker =(event)=>{
                event.preventDefault();
                const form = event.target;
                const displayName =form.displayName.value;
+               const photoURL =form.photoURL.value;
                const name = form.name.value;
                const email = form.email.value;
                const password =form.password.value;
-               console.log(displayName,name,email,password)
+               console.log(displayName,photoURL,name,email,password)
                loginEmailWithPass(email,password)
                .then(result=>{
                 const user =result.user;
                 console.log(user)
+                setError('');
                 form.reset();
-                setError('')
+                 clikerUpdeteProfile(name,photoURL);
+                 clikerOfVarifing();
+                 toast.success('please,verify your email')
                })
                .catch(error=>{
                 console.error(error)
                 setError( error.message)
                })
+    }
+    const clikerUpdeteProfile =(name,photoURL)=>{
+        const profile ={displayName:name, photoURL:photoURL};
+        profileUpdeteUser(profile)
+        .then(()=>{})
+        .catch(error=>{console.error(error)})
+
+    }
+    const clikerOfVarifing =()=>{
+         userVrifying()
+        .then(()=>{})
     }
     const acceptedCliker = event=>{
         setAccept(event.target.checked)

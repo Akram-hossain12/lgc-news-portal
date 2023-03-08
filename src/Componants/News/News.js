@@ -20,7 +20,7 @@ const News = () => {
                        <p><FaEye></FaEye> {rating.number}</p> 
                     </div>
                     <Card.Text>
-                       <p>{details}</p>
+                       <>{details}</>
                     </Card.Text>
                     <Link to={`/catagoris/${category_id}`}>
                       <Button variant="primary">This Category News</Button> 
