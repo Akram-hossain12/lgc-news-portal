@@ -43,12 +43,12 @@ const Header = () => {
                                 }
                                
                             </>
-                            <Nav.Link className='mx-3'>
+                            <Link to='/profile' className='mx-3'>
                                 {
                                    user?.photoURL ? <Image roundedCircle style={{height:'40px'}} src={user?.photoURL}></Image>:
                                    <FaUser></FaUser>
                                 }
-                            </Nav.Link>
+                            </Link>
                         </Nav>
                         <div className='d-lg-none'>
                             <LeaftSideNav></LeaftSideNav>

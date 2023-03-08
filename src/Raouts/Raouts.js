@@ -7,7 +7,9 @@ import Login from '../Componants/Login/Login';
 import News from '../Componants/News/News';
 import Register from '../Componants/Register/Register';
 import Main from '../Layout/Main/Main';
+import Profile from '../Other/profileUpdete/Profile';
 import TramsAndCondition from '../Other/TramsandCondition/TramsAndCondition';
+import UpdeteProfile from '../Other/UpdeteProfile/UpdeteProfile';
 import PrivateRoute from './PrivateRoute';
 
 
@@ -47,7 +49,15 @@ import PrivateRoute from './PrivateRoute';
                 {
                     path:'/tarms',
                     element:<TramsAndCondition></TramsAndCondition>
-                }
+                },
+                {
+                    path:'/profile',
+                    element:<PrivateRoute><Profile></Profile></PrivateRoute>
+                },
+                {
+                    path:'/updeteProfile',
+                    element:<PrivateRoute><UpdeteProfile></UpdeteProfile></PrivateRoute>
+                },
             ]
         }
     ]);
