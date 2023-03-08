@@ -21,18 +21,18 @@ import PrivateRoute from './PrivateRoute';
                 {
                     path:'/',
                     element:<Home></Home>,
-                    loader: ()=> fetch("http://localhost:5000/news")
+                    loader: ()=> fetch("https://news-prtal-app-server.vercel.app/news")
                 },
                 {
                       path:"/catagoris/:id",
                       element:<Catagory></Catagory>,
-                      loader:({params})=>fetch(`http://localhost:5000/catagory/${params.id}`)
+                      loader:({params})=>fetch(`https://news-prtal-app-server.vercel.app/catagory/${params.id}`)
 
                 },
                 {
                     path:'/news/:id',
                     element: <PrivateRoute><News></News></PrivateRoute>,
-                    loader:({params})=>fetch(`http://localhost:5000/news/${params.id}`)
+                    loader:({params})=>fetch(`https://news-prtal-app-server.vercel.app/news/${params.id}`)
                 },
                 {
                     path:'/about',
